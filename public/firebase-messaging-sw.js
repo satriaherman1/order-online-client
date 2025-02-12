@@ -28,3 +28,11 @@ messaging.onBackgroundMessage((payload) => {
     icon: "/icon.png",
   });
 });
+
+messaging.onMessage(messaging, (payload) => {
+  console.log("Foreground Notification Received", payload);
+  new Notification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: "/icon.png",
+  });
+});
