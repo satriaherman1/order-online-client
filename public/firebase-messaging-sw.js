@@ -1,19 +1,30 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+// Import Firebase dengan importScripts (karena service worker tidak mendukung ES Modules)
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"
+);
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
+);
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBpvtXGCDyPEQf-JiF3EX6cw7jGUk8i3r4",
-  authDomain: "order-online-now.firebaseapp.com",
-  projectId: "order-online-now",
-  storageBucket: "order-online-now.firebasestorage.app",
-  messagingSenderId: "413470245409",
-  appId: "1:413470245409:web:17db126307783cd24ed960",
-};
+// Inisialisasi Firebase (pastikan konfigurasi sesuai dengan proyek kamu)
+firebase.initializeApp({
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+});
 
-// Inisialisasi Firebase di Service Worker
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+const messaging = firebase.messaging();
 
-onBackgroundMessage(messaging, (payload) => {
-  console.log("[Firebase Messaging] Received background message", payload);
+// Handle pesan background (Silent Notifications)
+messaging.onBackgroundMessage((payload) => {
+  console.log("Silent Notification diterima:", payload);
+
+  // Opsional: Tampilkan notifikasi
+  self.registration.showNotification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: "/icon.png",
+  });
 });

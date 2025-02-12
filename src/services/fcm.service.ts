@@ -16,7 +16,6 @@ export const requestForToken = async (): Promise<string | null> => {
     });
 
     if (token) {
-      console.log("FCM Token:", token);
       return token;
     } else {
       console.warn("No FCM token received");
