@@ -2,10 +2,8 @@ import { useState } from "react";
 
 export default function Checkout() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isCheckedOut, setIsCheckedOut] = useState<boolean>(false);
 
   const handleCheckout = async () => {
-    setIsCheckedOut(true);
     setIsLoading(true);
 
     const loadingTimedOut = setTimeout(() => {

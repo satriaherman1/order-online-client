@@ -8,7 +8,7 @@ export default function Payment() {
   const notificationService = new NotificationsService();
   const isCheckedOut = LocalStorageService.getItem("isCheckedOut");
   const [err, setErr] = useState<string>();
-  const isPaid = LocalStorageService.getItem("isPaid");
+  //   const isPaid = LocalStorageService.getItem("isPaid");
 
   const handleSendNotifications = async () => {
     try {
