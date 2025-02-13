@@ -20,19 +20,9 @@ const messaging = firebase.messaging();
 
 // Handle pesan background (Silent Notifications)
 messaging.onBackgroundMessage((payload) => {
-  console.log("Silent Notification diterima:", payload);
-
   console.log(payload);
   // Opsional: Tampilkan notifikasi
   self.registration.showNotification(payload.notification.title, {
-    body: payload.notification.body,
-    icon: "/icon.png",
-  });
-});
-
-messaging.onMessage(messaging, (payload) => {
-  console.log("Foreground Notification Received", payload);
-  new Notification(payload.notification.title, {
     body: payload.notification.body,
     icon: "/icon.png",
   });

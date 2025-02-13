@@ -104,6 +104,7 @@ export default function Payment() {
 
   useEffect(() => {
     const unsubscribe = onMessage(messaging, ({ data }) => {
+      console.log("silent notifications:", data);
       if (!data) return;
 
       if (data.isPaid === undefined) return;
