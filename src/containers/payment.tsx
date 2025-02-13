@@ -16,7 +16,7 @@ export default function Payment() {
   const notificationService = new NotificationsService();
   const isCheckedOut = LocalStorageService.getItem("isCheckedOut");
   const [err, setErr] = useState<string>();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPaid, setIsPaid] = useState<boolean>(
     JSON.parse(LocalStorageService.getItem("isPaid"))
   );
@@ -40,6 +40,7 @@ export default function Payment() {
 
   const handleSendSilentNotifications = async () => {
     try {
+      setIsLoading(true);
       const payload: SilentNotificationPayload = {
         token: LocalStorageService.getItem("deviceToken"),
         data: {
@@ -77,6 +78,7 @@ export default function Payment() {
     };
 
     const handleIsPaid = () => {
+      setIsLoading(false);
       setIsPaid(JSON.parse(LocalStorageService.getItem("isPaid")));
     };
 
@@ -171,7 +173,7 @@ export default function Payment() {
                   isPaid,
               })}
             >
-              {isPaid ? "Payment Completed" : "Pay Now"}
+              {isLoading ? "Loading..." : "Pay Now"}
             </button>
           )}
         </div>
