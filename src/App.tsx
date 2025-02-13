@@ -21,7 +21,7 @@ function App() {
   }, [localStorage]);
 
   return (
-    <main className="bg-cyan-50 w-[100vw] h-[100vh]">
+    <main className="bg-cyan-50 w-[100vw] h-[100vh] py-9 overflow-y-scroll">
       {isCheckedOut === "true" ? <Payment /> : <Checkout />}
     </main>
   );

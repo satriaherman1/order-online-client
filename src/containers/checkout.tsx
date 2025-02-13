@@ -23,7 +23,7 @@ export default function Checkout() {
         <table className="w-full mt-12">
           <thead className="bg-gray-100">
             <tr className="border-y border-gray-300 text-left">
-              <th className="p-3">Product</th>
+              <th className="p-3 min-w-[350px]">Product</th>
               <th className="p-3">Qty</th>
               <th className="p-3">Price</th>
               <th className="p-3">Subtotal</th>
@@ -81,23 +81,17 @@ export default function Checkout() {
               <td className="p-3 font-semibold"></td>
               <td className="p-3 font-semibold">Rp. 750.000</td>
             </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button
-                  onClick={handleCheckout}
-                  disabled={isLoading}
-                  className="px-6 py-2 outline-none bg-lime-700 hover:bg-lime-600 text-white cursor-pointer rounded-full mt-4"
-                >
-                  {isLoading ? "Loading..." : "Checkout"}
-                </button>
-              </td>
-            </tr>
           </tfoot>
         </table>
       </div>
+
+      <button
+        onClick={handleCheckout}
+        disabled={isLoading}
+        className="px-6 py-2 outline-none block ml-auto bg-lime-700 hover:bg-lime-600 text-white cursor-pointer rounded-full mt-4"
+      >
+        {isLoading ? "Loading..." : "Checkout"}
+      </button>
     </div>
   );
 }

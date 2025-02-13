@@ -1,4 +1,7 @@
-import { PushNotificationPayload } from "@src/types/notifications";
+import {
+  PushNotificationPayload,
+  SilentNotificationPayload,
+} from "@src/types/notifications";
 
 class NotificationsService {
   private baseUrl;
@@ -18,6 +21,21 @@ class NotificationsService {
       return await response.json();
     } catch (err) {
       throw Error("Cannot Send Push Notifications");
+    }
+  }
+
+  async sendSilentNotifications(payload: SilentNotificationPayload) {
+    try {
+      const response = await fetch(`${this.baseUrl}/sendSilentNotifications`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error("Cannot Send Silent Notifications");
+
+      return await response.json();
+    } catch (err) {
+      throw Error("Cannot Send Silent Notifications");
     }
   }
 }

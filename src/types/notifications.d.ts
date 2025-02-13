@@ -4,3 +4,8 @@ export type PushNotificationPayload = {
   body: string;
   data?: Object;
 };
+export type SilentNotificationPayload = {
+  token: string;
+
+  data?: Object;
+};
