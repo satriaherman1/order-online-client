@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 export default function Payment() {
   const notificationService = new NotificationsService();
   const isCheckedOut = LocalStorageService.getItem("isCheckedOut");
+
   const [err, setErr] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPaid, setIsPaid] = useState<boolean>(
@@ -65,13 +66,21 @@ export default function Payment() {
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (!isCheckedOut) return;
+      if (!isCheckedOut || isPaid) return;
+
       handleSendPushNotifications();
       event.preventDefault();
       event.returnValue = "";
     };
 
     const handleVisibilityChange = () => {
+      try {
+        const isPaid = JSON.parse(LocalStorageService.getItem("isPaid"));
+        if (isPaid) return;
+      } catch (err) {
+        console.error("Error Parsing isPaid");
+      }
+
       if (isCheckedOut && document.hidden) {
         handleSendPushNotifications();
       }
@@ -95,7 +104,6 @@ export default function Payment() {
 
   useEffect(() => {
     const unsubscribe = onMessage(messaging, ({ data }) => {
-      console.log(!data);
       if (!data) return;
 
       if (data.isPaid === undefined) return;
