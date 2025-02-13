@@ -22,6 +22,7 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
   console.log("Silent Notification diterima:", payload);
 
+  console.log(payload);
   // Opsional: Tampilkan notifikasi
   self.registration.showNotification(payload.notification.title, {
     body: payload.notification.body,
@@ -35,4 +36,23 @@ messaging.onMessage(messaging, (payload) => {
     body: payload.notification.body,
     icon: "/icon.png",
   });
+});
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("Notification clicked:", event.notification);
+
+  event.notification.close(); // Menutup notifikasi setelah diklik
+
+  event.waitUntil(
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        if (clientList.length > 0) {
+          // Jika tab sudah terbuka, fokus ke tab tersebut
+          return clientList[0].focus();
+        }
+        // Jika tidak ada tab terbuka, buka URL baru
+        return clients.openWindow("https://order-online-now.web.app"); // Ganti dengan URL tujuan
+      })
+  );
 });

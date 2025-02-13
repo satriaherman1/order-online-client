@@ -4,6 +4,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 
+Notification.requestPermission().then((permission) => {
+  console.log("Permission status:", permission);
+  if (permission === "granted") {
+    console.log("Notifications allowed!");
+  } else {
+    console.log("Notifications blocked.");
+  }
+});
+
 requestForToken().then((payload) => {
   if (!payload) return;
   localStorage.setItem("deviceToken", payload);

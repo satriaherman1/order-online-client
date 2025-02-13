@@ -11,6 +11,7 @@
     "deploy:functions": "firebase deploy --only functions"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/vite": "^4.0.6",
     "firebase": "^11.3.0",
     "react": "^19.0.0",
